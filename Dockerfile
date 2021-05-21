@@ -1,13 +1,13 @@
 FROM arm64v8/ubuntu:focal
 
-ENV GAP_VERSION 4.11.0
+ENV GAP_VERSION 4.11.1
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN    apt-get update -qq \
-    && apt-get -qq install -y autoconf build-essential m4 libreadline6-dev libncurses5-dev wget \
+    && apt-get -qq install -y autoconf build-essential m4 libreadline6-dev libncurses5-dev curl \
                               unzip libgmp3-dev cmake gcc g++ sudo libtool
 
 RUN    adduser --quiet --shell /bin/bash --gecos "GAP user,101,," --disabled-password gap \
@@ -19,7 +19,7 @@ RUN    adduser --quiet --shell /bin/bash --gecos "GAP user,101,," --disabled-pas
 
 RUN    mkdir -p /home/gap/inst \
     && cd /home/gap/inst \
-    && wget https://www.gap-system.org/pub/gap/gap4core/gap-${GAP_VERSION}-core.zip \
+    && curl -L -O https://github.com/gap-system/gap/releases/download/v${GAP_VERSION}/gap-${GAP_VERSION}-core.zip \
     && unzip gap-${GAP_VERSION}-core.zip \
     && rm gap-${GAP_VERSION}-core.zip \
     && cd gap-${GAP_VERSION} \
@@ -27,11 +27,11 @@ RUN    mkdir -p /home/gap/inst \
     && make \
     && cp bin/gap.sh bin/gap \
     && mkdir -p /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && wget https://github.com/frankluebeck/GAPDoc/archive/relv1.6.4.tar.gz \
+    && curl -L -O https://github.com/frankluebeck/GAPDoc/archive/relv1.6.4.tar.gz \
     && tar xvzf relv1.6.4.tar.gz \
     && rm relv1.6.4.tar.gz \
     && mv GAPDoc-relv1.6.4 /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && wget https://github.com/gap-packages/PackageManager/archive/v1.1.tar.gz \
+    && curl -L -O https://github.com/gap-packages/PackageManager/archive/v1.1.tar.gz \
     && tar xvzf v1.1.tar.gz \
     && rm v1.1.tar.gz \
     && mv PackageManager-1.1 /home/gap/inst/gap-${GAP_VERSION}/pkg \
