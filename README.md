@@ -15,11 +15,11 @@ the official GAP distribution.
 
 ```
 $ docker run --rm -i -t jamesdbmitchell/gap-docker-minimal-arm
-gap@371f2d47a17d:~$ gap
- *********   GAP 4.10.2 of 19-Jun-2019
+gap@3860abed405b:~$ gap
+ *********   GAP 4.11.0 of 29-Feb-2020
  *  GAP  *   https://www.gap-system.org
- *********   Architecture: aarch64-unknown-linux-gnu-default64-kv3
- Configuration:  gmp 6.2.0, readline
+ *********   Architecture: aarch64-unknown-linux-gnu-default64-kv7
+ Configuration:  gmp 6.2.0, GASMAN, readline
  Loading the library and packages ...
 #I  autpgrp package is not available. Check that the name is correct
 #I  and it is present in one of the GAP root directories (see '??RootPaths')
@@ -47,7 +47,7 @@ gap@371f2d47a17d:~$ gap
 #I  and it is present in one of the GAP root directories (see '??RootPaths')
 #I  tomlib package is not available. Check that the name is correct
 #I  and it is present in one of the GAP root directories (see '??RootPaths')
- Packages:   GAPDoc 1.6.2, PrimGrp 3.3.2, SmallGrp 1.3, TransGrp 2.0.4
+ Packages:   GAPDoc 1.6.4, PrimGrp 3.4.1, SmallGrp 1.4.2, TransGrp 3.1
  Try '??help' for help. See also '?copyright', '?cite' and '?authors'
 gap>
 ```
