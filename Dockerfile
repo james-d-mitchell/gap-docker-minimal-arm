@@ -1,6 +1,6 @@
 FROM arm64v8/ubuntu:focal
 
-ENV GAP_VERSION 4.11.1
+ENV GAP_VERSION 4.12.0
 
 MAINTAINER James D. Mitchell <jdm3@st-andrews.ac.uk>
 
@@ -27,15 +27,11 @@ RUN    mkdir -p /home/gap/inst \
     && make \
     && cp bin/gap.sh bin/gap \
     && mkdir -p /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && curl -L -O https://github.com/frankluebeck/GAPDoc/archive/relv1.6.4.tar.gz \
-    && tar xvzf relv1.6.4.tar.gz \
-    && rm relv1.6.4.tar.gz \
-    && mv GAPDoc-relv1.6.4 /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && curl -L -O https://github.com/gap-packages/PackageManager/archive/v1.1.tar.gz \
-    && tar xvzf v1.1.tar.gz \
-    && rm v1.1.tar.gz \
-    && mv PackageManager-1.1 /home/gap/inst/gap-${GAP_VERSION}/pkg \
-    && echo "LoadPackage(\"PackageManager\"); InstallPackage(\"PackageManager\", false); if not InstallPackage(\"primgrp\") then QuitGap(1); fi; if not InstallPackage(\"smallgrp\") then QuitGap(1); fi; if not InstallPackage(\"transgrp\") then QuitGap(1); fi; QUIT;" | bin/gap --bare || exit 1 \
+    && curl -L -O https://github.com/gap-packages/PackageManager/archive/v1.3.tar.gz \
+    && tar xvzf v1.3.tar.gz \
+    && rm v1.3.tar.gz \
+    && mv PackageManager-1.3 /home/gap/inst/gap-${GAP_VERSION}/pkg \
+    && echo "LoadPackage(\"PackageManager\"); UpdatePackage(\"PackageManager\", false); if not InstallPackage(\"GAPDoc\"); then QuitGap(1); fi; if not InstallPackage(\"primgrp\") then QuitGap(1); fi; if not InstallPackage(\"smallgrp\") then QuitGap(1); fi; if not InstallPackage(\"transgrp\") then QuitGap(1); fi; QUIT;" | bin/gap --bare || exit 1 \
     && mv /root/.gap/ /home/gap/ \
     && chown -R gap:gap /home/gap/inst \
     && chown -R gap:gap /home/gap/.gap 
